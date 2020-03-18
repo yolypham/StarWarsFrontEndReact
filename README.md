@@ -1,6 +1,7 @@
 # FrontEnd Star Wars application in React
 
 - This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Stack used: React, Material UI, and Emotion - Styled Component 
 
 ## Steps to load front end
 1. cd into project: /StarWarsFrontEndReact
