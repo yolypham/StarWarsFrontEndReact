@@ -45,14 +45,16 @@ export default function MoviesGrid(props) {
     };
     const addRecord = async () => {
       const apiUrlFavorite = apiUrl + "favorite/add";
-      const res = await fetch(apiUrlFavorite, {
+      await fetch(apiUrlFavorite, {
         mode: "cors",
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(favorite)
+      }).then(res => {
+        //console.log("added", res);
+      }).catch(err => {
+        console.log("something went wrong", err);
       });
-
-      //console.log("added", res);
     };
     addRecord();
     setFavSwitch(!favSwitch);
@@ -69,7 +71,6 @@ export default function MoviesGrid(props) {
         method: "get"
       })
         .then(res => {
-          console.log("get favorite id", res);
           if (res.body) {
             fetch(apiUrlFavoriteDelete, {
               mode: "cors",

@@ -67,7 +67,6 @@ function prepareData(moviesData, userFavorites) {
   let data = [];
   moviesData.map(m => {
     const favorite = userFavorites.filter(f => f.favorite_imdbID === m.imdbId);
-    console.log("favorite", favorite);
     if (favorite.length > 0) {
       m.favorite_id = favorite[0].id;
     }
