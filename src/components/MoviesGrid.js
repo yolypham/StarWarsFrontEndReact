@@ -10,6 +10,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const apiUrl = "http://localhost:8080/api/";
+const userid = sessionStorage.getItem("userid");
 
 const useStyles = makeStyles({
   card: {
@@ -31,7 +32,7 @@ const useStyles = makeStyles({
 
 export default function MoviesGrid(props) {
   const classes = useStyles();
-  const { movie } = props;
+  const { movie, sortType } = props;
   const innitalFavoriteState = movie.favorite_id ? true : false;
 
   const [favSwitch, setFavSwitch] = useState(innitalFavoriteState);
@@ -39,7 +40,7 @@ export default function MoviesGrid(props) {
   const addFavorite = useCallback(() => {
     const favorite = {
       id: movie.id,
-      userId: "guest",
+      userId: userid,
       favorite_imdbID: movie.imdbId
     };
     const addRecord = async () => {
@@ -99,15 +100,14 @@ export default function MoviesGrid(props) {
       <div className={classes.cardDetails}>
         <CardContent>
           <Typography component="h2" variant="h5">
-            {movie.Title}
+            {sortType === "STORY" ? movie.Story : movie.Machete}: {movie.Title}
           </Typography>
           <Typography variant="subtitle1" color="textSecondary">
             {movie.Actors}
           </Typography>
-          <Typography variant="subtitle1" paragraph>
-            Story: {movie.Story} Machete: {movie.Machete}
-          </Typography>
+
           <div className={classes.favorite}>
+            {favSwitch === true && "Favorite "}
             <IconButton color="secondary" aria-label="add an alarm">
               {favSwitch === true ? (
                 <Favorite onClick={() => deleteFavorite()} />
@@ -116,6 +116,7 @@ export default function MoviesGrid(props) {
               )}
             </IconButton>
           </div>
+
         </CardContent>
       </div>
 
@@ -129,5 +130,6 @@ export default function MoviesGrid(props) {
 }
 
 MoviesGrid.propTypes = {
-  movie: PropTypes.object
+  movie: PropTypes.object,
+  sortType: PropTypes.string
 };

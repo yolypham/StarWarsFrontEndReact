@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import "./App.css";
 
 function App() {
+  sessionStorage.setItem("userid", "guest");
   return (
     <>
       <Header title="Star Wars Movies" />

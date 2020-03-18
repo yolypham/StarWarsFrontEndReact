@@ -4,9 +4,9 @@ import IOSSwich from "./IOSSwitch";
 import MoviesGrid from "./MoviesGrid";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import { Color, Height } from "../styles/config";
-import { Switch } from "@material-ui/core";
 
 const apiUrl = "http://localhost:8080/api/";
+const userid = sessionStorage.getItem("userid");
 
 const Root = styled.div`
   height: calc(100vh - ${Height.siteHeader} - ${Height.siteFooter});
@@ -105,7 +105,7 @@ const Main = props => {
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
-      await Promise.all([getMovies(), getFavoritesByUser("guest")]);
+      await Promise.all([getMovies(), getFavoritesByUser(userid)]);
       setLoading(false);
     };
 
@@ -143,7 +143,7 @@ const Main = props => {
           <MoviesWrapper>
             {moviesData.map((m, index) => (
               <MovieWrapper>
-                <MoviesGrid key={m.imdbId} movie={m} />
+                <MoviesGrid key={m.imdbId} movie={m} sortType={defaultSort === true ? 'STORY' : 'MACHETE'}/>
               </MovieWrapper>
             ))}
           </MoviesWrapper>

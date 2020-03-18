@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { BorderRadius, fontSize } from "@pulse/components/styles/config";
+import { BorderRadius, FontSize, Color } from "../styles/config";
 import PropTypes from "prop-types";
 
 const Root = styled.span`
-  background: ${props => props.theme.colors.iconUser};
+  background: ${Color.iconUser};
   border-radius: ${BorderRadius.Circle};
-  color: ${props => props.theme.colors.invertText};
+  color: ${Color.invertText};
   display: inline-block;
-  font-size: ${fontSize.s};
+  font-size: ${FontSize.s};
   height: 1.5rem;
   line-height: 1.5rem;
   text-align: center;
@@ -24,10 +24,10 @@ function getInitial(name) {
 }
 
 export default function UserIcon(props) {
-  const { username } = props;
-  return <Root>{getInitial(username)}</Root>;
+  const { userid } = props;
+  return <Root>{getInitial(userid)}</Root>;
 }
 
 UserIcon.propTypes = {
-  username: PropTypes.string
+  userid: PropTypes.string
 };

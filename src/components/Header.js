@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
-import {Height, LineHeight, Color, FontSize} from "../styles/config";
+import { Height, LineHeight, Color, FontSize } from "../styles/config";
+import UserIcon from "./userIcon";
 
 const Root = styled.div`
   align-items: center;
@@ -13,7 +14,9 @@ const Root = styled.div`
   justify-content: space-between;
 `;
 
-const Logo = styled.div``;
+const Logo = styled.div`
+  margin-left: 10px;
+`;
 
 const Title = styled.div`
   font-size: ${FontSize.x3l};
@@ -21,16 +24,22 @@ const Title = styled.div`
   line-height: ${LineHeight.normal};
 `;
 
-const User = styled.div``;
+const User = styled.div`
+  margin-right: 10px;
+`;
 
 export default function Header(props) {
   const { title } = props;
 
+  const userid = sessionStorage.getItem("userid")
+
   return (
     <Root>
-      <Logo>Logo here</Logo>
+      <Logo>{""}</Logo>
       <Title>{title}</Title>
-      <User>Guest</User>
+      <User>
+        Guest <UserIcon userid={userid} />
+      </User>
     </Root>
   );
 }

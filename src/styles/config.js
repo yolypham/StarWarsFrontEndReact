@@ -11,6 +11,8 @@ export const Color = {
   headerBackground: "#e7dff7",
   footerBackground: "#e7dff7",
   spinner: "#32CD32",
+
+  iconUser: "#1976d2"
 };
 
 export const FontSize = {
@@ -54,6 +56,14 @@ export const Height = {
   siteHeader: "4rem",
   siteFooter: "3rem",
   sortSwitch: "2.65rem"
+};
+
+export const BorderRadius = {
+  Soft: ".125rem",
+  Default: ".25rem",
+  Circle: "50%",
+  Hard: "1rem",
+  RoundCard: "5rem"
 };
 
 export const FontWeight = {
