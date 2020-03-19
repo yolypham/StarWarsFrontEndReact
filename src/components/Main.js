@@ -6,7 +6,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { Color, Height } from "../styles/config";
 
 const apiUrl = "http://localhost:8080/api/";
-const userid = sessionStorage.getItem("userid");
 
 const Root = styled.div`
   height: calc(100vh - ${Height.siteHeader} - ${Height.siteFooter});
@@ -79,11 +78,11 @@ const Main = props => {
   const [moviesData, setMoviesData] = useState([]);
   const [userFavorites, setUserFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [defaultSort, setDefaultSort] = React.useState(true);
+  const [defaultSort, setDefaultSort] = useState(true);
+  const [user, setUser] = useState('')
 
   const handleChange = useCallback(e => {
     setDefaultSort(e.target.checked);
-    console.log("swiched to: ", e.target.checked);
   }, []);
 
   const getMovies = async () => {
@@ -108,8 +107,10 @@ const Main = props => {
       setLoading(false);
     };
 
+    const userid = sessionStorage.getItem("userid");
+    setUser(userid);
     loadData();
-  }, [defaultSort]);
+  }, [defaultSort, user]);
 
   if (moviesData.length > 0) prepareData(moviesData, userFavorites);
 
@@ -142,7 +143,7 @@ const Main = props => {
           <MoviesWrapper>
             {moviesData.map((m, index) => (
               <MovieWrapper>
-                <MoviesGrid key={m.imdbId} movie={m} sortType={defaultSort === true ? 'STORY' : 'MACHETE'}/>
+                <MoviesGrid key={m.imdbId} movie={m} sortType={defaultSort === true ? 'STORY' : 'MACHETE'} user={user}/>
               </MovieWrapper>
             ))}
           </MoviesWrapper>

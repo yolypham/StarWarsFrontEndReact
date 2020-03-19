@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, {useCallback, useState} from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +10,6 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 
 const apiUrl = "http://localhost:8080/api/";
-const userid = sessionStorage.getItem("userid");
 
 const useStyles = makeStyles({
   card: {
@@ -32,33 +31,32 @@ const useStyles = makeStyles({
 
 export default function MoviesGrid(props) {
   const classes = useStyles();
-  const { movie, sortType } = props;
+  const { movie, sortType, user } = props;
   const innitalFavoriteState = movie.favorite_id ? true : false;
 
   const [favSwitch, setFavSwitch] = useState(innitalFavoriteState);
 
   const addFavorite = useCallback(() => {
     const favorite = {
-      id: movie.id,
-      userId: userid,
+      userId: user,
       favorite_imdbID: movie.imdbId
     };
     const addRecord = async () => {
       const apiUrlFavorite = apiUrl + "favorite/add";
-      await fetch(apiUrlFavorite, {
+      const res = await fetch(apiUrlFavorite, {
         mode: "cors",
         method: "post",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(favorite)
-      }).then(res => {
-        //console.log("added", res);
-      }).catch(err => {
-        console.log("something went wrong", err);
       });
+
+      const x = await res.json();
+      console.log(x);
+      movie.favorite_id = x.id;
+      setFavSwitch(!favSwitch);
     };
     addRecord();
-    setFavSwitch(!favSwitch);
-  }, [movie.id, movie.imdbId]);
+  }, [favSwitch, movie.id, movie.imdbId]);
 
   const deleteFavorite = useCallback(() => {
     const deleteRecord = async () => {
@@ -66,36 +64,24 @@ export default function MoviesGrid(props) {
       const apiUrlFavoriteDelete =
         apiUrl + "favorite/remove?id=" + movie.favorite_id;
 
-      await fetch(apiUrlFavoriteGet, {
+      const resGet = await fetch(apiUrlFavoriteGet, {
         mode: "cors",
         method: "get"
-      })
-        .then(res => {
-          if (res.body) {
-            fetch(apiUrlFavoriteDelete, {
-              mode: "cors",
-              method: "delete"
-            })
-              .then(res => {
-                setFavSwitch(!favSwitch);
-                //console.log("deleted", res);
-              })
-              .catch(err => {
-                console.log("something went wrong");
-              });
-          } else {
-            // when favorite record not found for delete, update favSwitch to false
-            setFavSwitch(!favSwitch);
-          }
-        })
-        .catch(err => {
-          console.log("something went wrong");
+      });
+
+      if (resGet.ok && resGet.ok === true) {
+        const resDel = await fetch(apiUrlFavoriteDelete, {
+          mode: "cors",
+          method: "delete"
         });
+        if (resDel.ok && resDel.ok === true) setFavSwitch(!favSwitch);
+      }
     };
 
-    deleteRecord();
-  }, [movie.favorite_id]);
+    deleteRecord(movie.favorite_id);
+  }, [favSwitch, movie.favorite_id]);
 
+  console.log('movie', movie)
   return (
     <Card className={classes.card}>
       <div className={classes.cardDetails}>
@@ -106,7 +92,7 @@ export default function MoviesGrid(props) {
           <Typography variant="subtitle1" color="textSecondary">
             {movie.Actors}
           </Typography>
-
+          {user}{movie.favorite_id ? movie.favorite_id : 'no fav id'}
           <div className={classes.favorite}>
             {favSwitch === true && "Favorite "}
             <IconButton color="secondary" aria-label="add an alarm">
@@ -117,7 +103,6 @@ export default function MoviesGrid(props) {
               )}
             </IconButton>
           </div>
-
         </CardContent>
       </div>
 
@@ -132,5 +117,6 @@ export default function MoviesGrid(props) {
 
 MoviesGrid.propTypes = {
   movie: PropTypes.object,
-  sortType: PropTypes.string
+  sortType: PropTypes.string,
+  user: PropTypes.string
 };
