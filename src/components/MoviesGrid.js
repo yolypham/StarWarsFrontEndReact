@@ -51,7 +51,6 @@ export default function MoviesGrid(props) {
       });
 
       const x = await res.json();
-      console.log(x);
       movie.favorite_id = x.id;
       setFavSwitch(!favSwitch);
     };
@@ -81,7 +80,6 @@ export default function MoviesGrid(props) {
     deleteRecord(movie.favorite_id);
   }, [favSwitch, movie.favorite_id]);
 
-  console.log('movie', movie)
   return (
     <Card className={classes.card}>
       <div className={classes.cardDetails}>
@@ -92,7 +90,7 @@ export default function MoviesGrid(props) {
           <Typography variant="subtitle1" color="textSecondary">
             {movie.Actors}
           </Typography>
-          {user}{movie.favorite_id ? movie.favorite_id : 'no fav id'}
+
           <div className={classes.favorite}>
             {favSwitch === true && "Favorite "}
             <IconButton color="secondary" aria-label="add an alarm">
