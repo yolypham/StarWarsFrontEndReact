@@ -36,6 +36,7 @@ const SwitchWrapper = styled.div`
 const SwitchLabel = styled.div`
   min-width: 75px;
   max-width: 75px;
+  text-align: ${props => props.align};
 `;
 
 const MoviesWrapper = styled.div`
@@ -79,7 +80,7 @@ const Main = props => {
   const [userFavorites, setUserFavorites] = useState([]);
   const [loading, setLoading] = useState(false);
   const [defaultSort, setDefaultSort] = useState(true);
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState("");
 
   const handleChange = useCallback(e => {
     setDefaultSort(e.target.checked);
@@ -120,13 +121,13 @@ const Main = props => {
         <SortSection>
           <div>Sort by:</div>
           <SwitchWrapper>
-            <SwitchLabel>Macheta</SwitchLabel>
+            <SwitchLabel align="right">Macheta</SwitchLabel>
             <IOSSwich
               checked={defaultSort}
               onChange={e => handleChange(e)}
               value={defaultSort}
             />
-            <SwitchLabel>Story</SwitchLabel>
+            <SwitchLabel align="left">Story</SwitchLabel>
           </SwitchWrapper>
         </SortSection>
 
@@ -143,7 +144,12 @@ const Main = props => {
           <MoviesWrapper>
             {moviesData.map((m, index) => (
               <MovieWrapper>
-                <MoviesGrid key={m.imdbId} movie={m} sortType={defaultSort === true ? 'STORY' : 'MACHETE'} user={user}/>
+                <MoviesGrid
+                  key={m.imdbId}
+                  movie={m}
+                  sortType={defaultSort === true ? "STORY" : "MACHETE"}
+                  user={user}
+                />
               </MovieWrapper>
             ))}
           </MoviesWrapper>
