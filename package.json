@@ -9,8 +9,9 @@
     "@material-ui/icons": "^4.9.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "emotion": "^10.0.27",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0",
+    "prop-types": "latest",
     "react": "^16.13.0",
     "react-dom": "^16.13.0",
     "react-scripts": "3.4.0",
@@ -18,6 +19,9 @@
   },
   "scripts": {
     "start": "react-scripts start",
+    "start:dev": "react-scripts start NODE_ENV=development nodemon",
+    "lint:css": "stylelint \"src/components/*.jsx\"",
+    "lint:js": "eslint \"src/components/*.{jsx,js}\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -40,7 +44,14 @@
   "proxy": "http://localhost:8080/",
   "devDependencies": {
     "eslint": "^6.8.0",
+    "known-css-properties": "^0.18.0",
     "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "stylelint": "^13.2.1",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-declaration-use-variable": "^1.7.2",
+    "stylelint-order": "^4.0.0",
+    "stylelint-processor-styled-components": "^1.10.0"
   }
 }

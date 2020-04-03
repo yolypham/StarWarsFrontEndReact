@@ -21,21 +21,21 @@ const Content = styled.div`
 
 const SortSection = styled.div`
   display: flex;
-  justify-content: center;
   flex-flow: column;
+  justify-content: center;
   padding-top: 15px;
   text-align: center;
 `;
 
 const SwitchWrapper = styled.div`
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: center;
 `;
 
 const SwitchLabel = styled.div`
-  min-width: 75px;
   max-width: 75px;
+  min-width: 75px;
   text-align: ${props => props.align};
 `;
 
@@ -43,8 +43,8 @@ const MoviesWrapper = styled.div`
   align-self: center;
   display: flex;
   flex-flow: column;
-  padding: 10px 150px 10px 150px;
   max-width: 700px;
+  padding: 10px 150px 10px 150px;
 `;
 
 const MovieWrapper = styled.div`
@@ -52,13 +52,13 @@ const MovieWrapper = styled.div`
 `;
 
 const SpinnerWrapper = styled.div`
+  align-items: center;
   color: ${Color.spinner};
+  display: flex;
   height: calc(
     100vh - ${Height.siteHeader} - ${Height.siteFooter} - ${Height.sortSwitch}
   );
   justify-content: center;
-  display: flex;
-  align-items: center;
 `;
 
 function prepareData(moviesData, userFavorites) {
@@ -143,7 +143,7 @@ const Main = props => {
         ) : (
           <MoviesWrapper>
             {moviesData.map((m, index) => (
-              <MovieWrapper>
+              <MovieWrapper key={m.imdbId}>
                 <MoviesGrid
                   key={m.imdbId}
                   movie={m}

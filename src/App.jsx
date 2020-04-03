@@ -6,6 +6,7 @@ import "./App.css";
 
 function App() {
   sessionStorage.setItem("userid", "guest");
+  //console.log('environment is: ', process.env.NODE_ENV)
   return (
     <>
       <Header title="Star Wars Movies" />

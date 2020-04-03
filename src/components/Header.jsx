@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import PropTypes from "prop-types";
-import { Height, LineHeight, Color, FontSize } from "../styles/config";
+import {Height, LineHeight, Color, FontSize, FontWeight} from "../styles/config";
 import UserIcon from "./userIcon";
 
 const Root = styled.div`
   align-items: center;
-  border-bottom: 1px solid ${Color.defaultButton};
   background-color: ${Color.headerBackground};
+  border-bottom: 1px solid ${Color.defaultButton};
   display: flex;
   flex-flow: row;
   height: ${Height.siteHeader};
@@ -20,7 +20,7 @@ const Logo = styled.div`
 
 const Title = styled.div`
   font-size: ${FontSize.x3l};
-  font-weight: 400;
+  font-weight: ${FontWeight.bold};
   line-height: ${LineHeight.normal};
 `;
 
@@ -31,7 +31,7 @@ const User = styled.div`
 export default function Header(props) {
   const { title } = props;
 
-  const userid = sessionStorage.getItem("userid")
+  const userid = sessionStorage.getItem("userid");
 
   return (
     <Root>

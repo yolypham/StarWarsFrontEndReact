@@ -93,11 +93,11 @@ export default function MoviesGrid(props) {
 
           <div className={classes.favorite}>
             {favSwitch === true && "Favorite "}
-            <IconButton color="secondary" aria-label="add an alarm">
+            <IconButton color="secondary" aria-label="add an alarm" onClick={() => favSwitch === true ? deleteFavorite() : addFavorite()}>
               {favSwitch === true ? (
-                <Favorite onClick={() => deleteFavorite()} />
+                <Favorite />
               ) : (
-                <FavoriteBorder onClick={() => addFavorite()} />
+                <FavoriteBorder />
               )}
             </IconButton>
           </div>
